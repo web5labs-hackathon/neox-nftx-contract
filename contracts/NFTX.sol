@@ -14,10 +14,8 @@ contract NFTX is ERC721A, Ownable {
     Status public status;
     string public baseURI;
     uint256 public constant MAX_MINT_PER_ADDR = 2;
-    uint256 public constant MAX_SUPPLY = 1000;
+    uint256 public constant MAX_SUPPLY = 111;
     uint256 public constant PRICE = 0.01 * 10**18; // 0.01 ETH
-
-    mapping(address => uint256) public allowlist;
 
     event Minted(address minter, uint256 amount);
     event StatusChanged(Status status);
@@ -30,10 +28,10 @@ contract NFTX is ERC721A, Ownable {
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }
-
+    
     function mint(uint256 quantity) external payable {
         require(status == Status.Started, "not started .");
-        require(tx.origin == msg.sender, "only owner can mint .");
+        require(tx.origin == msg.sender, "contract address is not allowed to mint .");
         require(
             numberMinted(msg.sender) + quantity <= MAX_MINT_PER_ADDR,"Number of minted exceeds."
         );
