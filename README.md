@@ -1,5 +1,5 @@
 
-#NFTX contract 
+# NFTX contract 
 
 - yarn
 - npx hardhat compile
